@@ -8,8 +8,14 @@ This repository intentionally contains only one keymap:
 keyboards/zsa/voyager/keymaps/zwang695
 ```
 
-The first version is based on ZSA's default Voyager keymap from
-`zsa/qmk_firmware` on the `firmware25` branch.
+The keymap source is based on the Oryx export for `voyager-default-mac`:
+
+```text
+https://configure.zsa.io/voyager/layouts/lBWEb/ZPG0o5/0
+```
+
+It keeps the Oryx-generated `config.h`, `rules.mk`, and layout metadata while
+building from this repository through QMK external userspace.
 
 ## Local Setup
 
