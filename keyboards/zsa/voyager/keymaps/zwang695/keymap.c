@@ -14,15 +14,32 @@ enum custom_keycodes {
 
 
 
+#define CTL_A LCTL_T(KC_A)
+#define OPT_S LALT_T(KC_S)
+#define CMD_D LGUI_T(KC_D)
+#define SFT_F LSFT_T(KC_F)
+#define SFT_J RSFT_T(KC_J)
+#define CMD_K RGUI_T(KC_K)
+#define OPT_L RALT_T(KC_L)
+#define CTL_SCLN RCTL_T(KC_SCLN)
 #define DUAL_FUNC_0 LT(12, KC_F2)
+
+const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
+  LAYOUT_voyager(
+    '*', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', '*',
+    '*', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', '*',
+    '*', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', '*',
+    '*', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', '*',
+                         '*', '*',       '*', '*'
+  );
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
     DUAL_FUNC_0,    KC_1,           KC_2,           KC_3,           KC_4,           KC_5,                                           KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINUS,
     CW_TOGG,        KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,                                           KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLS,
-    MT(MOD_LSFT, KC_BSPC),KC_A,           KC_S,           KC_D,           KC_F,           KC_G,                                           KC_H,           KC_J,           KC_K,           KC_L,           KC_SCLN,        MT(MOD_RSFT, KC_QUOTE),
-    KC_LEFT_CTRL,   MT(MOD_LALT, KC_Z),KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         MT(MOD_RALT, KC_SLASH),KC_RIGHT_GUI,
-                                                    LT(1, KC_ENTER),MT(MOD_LGUI, KC_TAB),                                MT(MOD_LSFT, KC_BSPC),LT(2, KC_SPACE)
+    KC_BSPC,        CTL_A,          OPT_S,          CMD_D,          SFT_F,          KC_G,                                           KC_H,           SFT_J,          CMD_K,          OPT_L,          CTL_SCLN,       KC_QUOTE,
+    KC_LEFT_CTRL,   KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       KC_RIGHT_GUI,
+                                                    LT(1, KC_ENTER),KC_TAB,                                          KC_BSPC,        LT(2, KC_SPACE)
   ),
   [1] = LAYOUT_voyager(
     KC_ESCAPE,      KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,                                          KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,
