@@ -21,7 +21,6 @@ enum custom_keycodes {
 #define CMD_K RGUI_T(KC_K)
 #define OPT_L RALT_T(KC_L)
 #define CTL_SCLN RCTL_T(KC_SCLN)
-#define DUAL_FUNC_0 LT(12, KC_F2)
 
 const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
   LAYOUT_voyager(
@@ -49,9 +48,9 @@ bool get_speculative_hold(uint16_t keycode, keyrecord_t *record) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
-    DUAL_FUNC_0,    KC_1,           KC_2,           KC_3,           KC_4,           KC_5,                                           KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINUS,
+    KC_EQUAL,       KC_1,           KC_2,           KC_3,           KC_4,           KC_5,                                           KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINUS,
     CW_TOGG,        KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,                                           KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLS,
-    KC_BSPC,        CTL_A,          OPT_S,          CMD_D,          SFT_F,          KC_G,                                           KC_H,           SFT_J,          CMD_K,          OPT_L,          CTL_SCLN,       KC_QUOTE,
+    KC_ESCAPE,      CTL_A,          OPT_S,          CMD_D,          SFT_F,          KC_G,                                           KC_H,           SFT_J,          CMD_K,          OPT_L,          CTL_SCLN,       KC_QUOTE,
     KC_LEFT_CTRL,   KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       KC_RIGHT_GUI,
                                                     LT(1, KC_ENTER),KC_TAB,                                          KC_BSPC,        LT(2, KC_SPACE)
   ),
@@ -98,21 +97,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     break;
 
-    case DUAL_FUNC_0:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(KC_EQUAL);
-        } else {
-          unregister_code16(KC_EQUAL);
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_ESCAPE);
-        } else {
-          unregister_code16(KC_ESCAPE);
-        }
-      }
-      return false;
     case HSV_0_255_255:
       if (record->event.pressed) {
         rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
