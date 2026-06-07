@@ -19,10 +19,10 @@ building from this repository through QMK external userspace.
 
 ## Local Setup
 
-Install the QMK CLI, then set up ZSA's QMK fork:
+Install the QMK CLI, then set up upstream QMK:
 
 ```sh
-qmk setup zsa/qmk_firmware -b firmware25
+qmk setup qmk/qmk_firmware
 ```
 
 Configure this repository as your QMK external userspace:
@@ -45,5 +45,5 @@ Or compile all userspace targets from `qmk.json`:
 qmk userspace-compile
 ```
 
-GitHub Actions also builds this keymap against `zsa/qmk_firmware@firmware25`
+GitHub Actions also builds this keymap against `qmk/qmk_firmware@master`
 on every push and manual workflow dispatch.
