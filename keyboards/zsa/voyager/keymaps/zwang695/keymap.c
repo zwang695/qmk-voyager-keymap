@@ -33,6 +33,21 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
                          '*', '*',       '*', '*'
   );
 
+bool get_speculative_hold(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case CTL_A:
+    case OPT_S:
+    case CMD_D:
+    case SFT_F:
+    case SFT_J:
+    case CMD_K:
+    case OPT_L:
+    case CTL_SCLN:
+      return true;
+  }
+  return false;
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
     DUAL_FUNC_0,    KC_1,           KC_2,           KC_3,           KC_4,           KC_5,                                           KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINUS,
