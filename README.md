@@ -17,6 +17,19 @@ https://configure.zsa.io/voyager/layouts/lBWEb/ZPG0o5/0
 It keeps the Oryx-generated `config.h`, `rules.mk`, and layout metadata while
 building from this repository through QMK external userspace.
 
+## Keymap Diagram
+
+![Voyager keymap](docs/keymap.svg)
+
+The diagram is generated with
+[`keymap-drawer`](https://github.com/caksoylar/keymap-drawer). After setting up
+the QMK CLI below, install `keymap-drawer` and redraw with:
+
+```sh
+pipx install keymap-drawer
+scripts/draw-keymap.sh
+```
+
 ## Local Setup
 
 Install the QMK CLI, then set up upstream QMK:
