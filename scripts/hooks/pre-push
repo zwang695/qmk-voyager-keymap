@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(git rev-parse --show-toplevel)"
+cd "$repo_root"
+
+./scripts/draw-keymap.sh
+
+if ! git diff --quiet -- docs/keymap.yaml docs/keymap.svg; then
+  cat >&2 <<'MSG'
+Keymap diagram was regenerated during pre-push.
+Commit docs/keymap.yaml and docs/keymap.svg, then push again.
+MSG
+  exit 1
+fi

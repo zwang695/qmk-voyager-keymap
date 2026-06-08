@@ -6,7 +6,8 @@
 #endif
 
 enum custom_keycodes {
-  HSV_0_255_255 = ZSA_SAFE_RANGE,
+  ARROW = ZSA_SAFE_RANGE,
+  HSV_0_255_255,
   HSV_74_255_255,
   HSV_169_255_255,
 };
@@ -52,14 +53,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     CW_TOGG,        KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,                                           KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLS,
     KC_ESCAPE,      CTL_A,          OPT_S,          CMD_D,          SFT_F,          KC_G,                                           KC_H,           SFT_J,          CMD_K,          OPT_L,          CTL_SCLN,       KC_QUOTE,
     KC_LEFT_CTRL,   KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       KC_RIGHT_GUI,
-                                                    LT(1, KC_ENTER),KC_TAB,                                          KC_BSPC,        LT(2, KC_SPACE)
+                                                    KC_ENTER,       LT(1, KC_TAB),                                  LT(1, KC_BSPC), LT(2, KC_SPACE)
   ),
   [1] = LAYOUT_voyager(
-    KC_ESCAPE,      KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,                                          KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,
-    KC_GRAVE,       KC_EXLM,        KC_AT,          KC_HASH,        KC_DLR,         KC_PERC,                                        KC_7,           KC_8,           KC_9,           KC_MINUS,       KC_SLASH,       KC_F12,
-    KC_TRANSPARENT, KC_CIRC,        KC_AMPR,        KC_ASTR,        KC_LPRN,        KC_RPRN,                                        KC_4,           KC_5,           KC_6,           KC_PLUS,        KC_ASTR,        KC_BSPC,
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_LBRC,        KC_RBRC,        KC_LCBR,        KC_RCBR,                                        KC_1,           KC_2,           KC_3,           KC_DOT,         KC_EQUAL,       KC_ENTER,
-                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_0
+    KC_GRAVE,       KC_LABK,        KC_RABK,        KC_MINS,        KC_PIPE,        KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_CIRC,        KC_LCBR,        KC_RCBR,        KC_DLR,         ARROW,
+    KC_EXLM,        KC_ASTR,        KC_SLSH,        KC_EQUAL,       KC_AMPR,        KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_HASH,        KC_LPRN,        KC_RPRN,        KC_SCLN,        KC_DQUO,
+    KC_TILD,        KC_PLUS,        KC_LBRC,        KC_RBRC,        KC_PERC,        KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_AT,          KC_COLN,        KC_COMM,        KC_DOT,         KC_QUOT,
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
   [2] = LAYOUT_voyager(
     RM_TOGG,        QK_KB,          RM_NEXT,        RGB_M_P,        RM_VALD,        RM_VALU,                                        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, QK_BOOT,
@@ -80,6 +81,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+    case ARROW:
+      if (record->event.pressed) {
+        const uint8_t mods = get_mods() | get_weak_mods()
+#ifndef NO_ACTION_ONESHOT
+          | get_oneshot_mods()
+#endif
+          ;
+        const bool shifted = mods & MOD_MASK_SHIFT;
+        const bool alted = mods & MOD_MASK_ALT;
+
+        clear_weak_mods();
+        if (alted) {
+          send_string(shifted ? "<=>" : "<->");
+        } else {
+          send_string(shifted ? "=>" : "->");
+        }
+      }
+      return false;
   case QK_MODS ... QK_MODS_MAX:
     // Mouse and consumer keys (volume, media) with modifiers work inconsistently across operating systems,
     // this makes sure that modifiers are always applied to the key that was pressed.

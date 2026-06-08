@@ -16,41 +16,63 @@ layers:
     - {t: ';', h: CTL}
     - ''''
   - [LCTL, Z, X, C, V, B, N, M, ',', ., /, RGUI]
-  - - {t: ENTER, h: Symbols}
-    - TAB
-    - BSPC
+  - - ENTER
+    - {t: TAB, h: Symbols}
+    - {t: BSPC, h: Symbols}
     - {t: SPACE, h: Media}
   Symbols:
-  - [ESC, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11]
-  - ['`', '!', '@', '#', $, '%', '7', '8', '9', '-', /, F12]
-  - - {t: ▽, type: trans}
-    - ^
-    - '&'
-    - '*'
-    - (
-    - )
-    - '4'
-    - '5'
-    - '6'
-    - +
-    - '*'
-    - BSPC
-  - - {t: ▽, type: trans}
+  - - '`'
+    - <
+    - '>'
+    - '-'
+    - '|'
     - {t: ▽, type: trans}
-    - '['
-    - ']'
+    - {t: ▽, type: trans}
+    - ^
     - '{'
     - '}'
-    - '1'
-    - '2'
-    - '3'
-    - .
+    - $
+    - '->'
+  - - '!'
+    - '*'
+    - /
     - '='
-    - ENTER
-  - - {type: held}
+    - '&'
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - '0'
+    - '#'
+    - (
+    - )
+    - ;
+    - '"'
+  - - '~'
+    - +
+    - '['
+    - ']'
+    - '%'
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - '@'
+    - ':'
+    - ','
+    - .
+    - ''''
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: held}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
   Media:
   - - RM TOGG
     - QK KB
