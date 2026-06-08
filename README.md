@@ -30,6 +30,15 @@ pipx install keymap-drawer
 scripts/draw-keymap.sh
 ```
 
+To keep diagrams fresh before pushes, enable the checked-in Git hook:
+
+```sh
+git config core.hooksPath scripts/hooks
+```
+
+The hook runs `scripts/draw-keymap.sh` and blocks the push if the generated
+diagram files need to be committed.
+
 ## Local Setup
 
 Install the QMK CLI, then set up upstream QMK:
