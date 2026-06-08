@@ -83,20 +83,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case ARROW:
       if (record->event.pressed) {
-        const uint8_t mods = get_mods() | get_weak_mods()
+        const uint8_t real_mods = get_mods();
+        const uint8_t weak_mods = get_weak_mods();
+        const uint8_t oneshot_mods =
 #ifndef NO_ACTION_ONESHOT
-          | get_oneshot_mods()
+          get_oneshot_mods()
+#else
+          0
 #endif
           ;
+        const uint8_t mods = real_mods | weak_mods | oneshot_mods;
         const bool shifted = mods & MOD_MASK_SHIFT;
         const bool alted = mods & MOD_MASK_ALT;
 
+        clear_mods();
         clear_weak_mods();
+#ifndef NO_ACTION_ONESHOT
+        clear_oneshot_mods();
+#endif
         if (alted) {
           send_string(shifted ? "<=>" : "<->");
         } else {
           send_string(shifted ? "=>" : "->");
         }
+        set_mods(real_mods);
+        set_weak_mods(weak_mods);
       }
       return false;
   case QK_MODS ... QK_MODS_MAX:
