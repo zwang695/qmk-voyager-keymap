@@ -21,42 +21,6 @@ layers:
     - {t: BSPC, h: Symbols}
     - {t: SPACE, h: Media}
   Symbols:
-  - - '`'
-    - <
-    - '>'
-    - '-'
-    - '|'
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - ^
-    - '{'
-    - '}'
-    - $
-    - '->'
-  - - '!'
-    - '*'
-    - /
-    - '='
-    - '&'
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - '#'
-    - (
-    - )
-    - ;
-    - '"'
-  - - '~'
-    - +
-    - '['
-    - ']'
-    - '%'
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - '@'
-    - ':'
-    - ','
-    - .
-    - ''''
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -68,6 +32,42 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - '`'
+    - <
+    - '>'
+    - '-'
+    - '|'
+    - ^
+    - '{'
+    - '}'
+    - $
+    - '->'
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - '!'
+    - '*'
+    - /
+    - '='
+    - '&'
+    - '#'
+    - (
+    - )
+    - ;
+    - '"'
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - '~'
+    - +
+    - '['
+    - ']'
+    - '%'
+    - '@'
+    - ':'
+    - ','
+    - .
+    - ''''
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - {t: ▽, type: held}
