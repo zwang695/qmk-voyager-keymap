@@ -1,9 +1,9 @@
 layout: {qmk_keyboard: zsa/voyager, layout_name: LAYOUT}
 layers:
   Base:
-  - ['=', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-']
+  - [+, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-']
   - [CW TOGG, Q, W, E, R, T, Y, U, I, O, P, \]
-  - - ESC
+  - - TAB
     - {t: A, h: CTL}
     - {t: S, h: OPT}
     - {t: D, h: CMD}
@@ -15,11 +15,11 @@ layers:
     - {t: L, h: OPT}
     - {t: ';', h: CTL}
     - ''''
-  - [LCTL, Z, X, C, V, B, N, M, ',', ., /, RGUI]
-  - - ENTER
-    - {t: TAB, h: Symbols}
+  - [Magic, Z, X, C, V, B, N, M, ',', ., /, ENTER]
+  - - {t: '_', h: Nav}
     - {t: BSPC, h: Symbols}
-    - {t: SPACE, h: Media}
+    - {t: ESC, h: Num}
+    - SPACE
   Symbols:
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -73,11 +73,11 @@ layers:
     - {t: ▽, type: held}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-  Media:
+  Nav:
   - - RM TOGG
     - QK KB
     - RM NEXT
-    - RGB M P
+    - RGB SLD
     - RM VALD
     - RM VALU
     - {t: ▽, type: trans}
@@ -85,7 +85,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - QK BOOT
+    - {t: QK BOOT, h: MOD_LCTL}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - AUDIO VOL DOWN
@@ -114,7 +114,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - HSV 0 255 255
-    - HSV 74 255 255
+    - HSV 0 255 255
     - HSV 169 255 255
     - {t: ▽, type: trans}
     - Ctl+Sft+TAB
@@ -125,4 +125,88 @@ layers:
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {type: held}
+    - {t: ▽, type: trans}
+  Num:
+  - [ESC, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11]
+  - ['`', '!', '@', '#', $, '%', '7', '8', '9', '-', /, F12]
+  - - {t: ▽, type: trans}
+    - ^
+    - '&'
+    - '*'
+    - (
+    - )
+    - '4'
+    - '5'
+    - '6'
+    - +
+    - '*'
+    - BSPC
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - '['
+    - ']'
+    - '{'
+    - '}'
+    - '1'
+    - '2'
+    - '3'
+    - .
+    - '='
+    - ENTER
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: held}
+    - '0'
+  Magic:
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - RM TOGG
+    - QK KB
+    - RM NEXT
+    - RGB SLD
+    - RM VALD
+    - RM VALU
+  - - {t: ▽, type: trans}
+    - MEDIA PREV TRACK
+    - MEDIA NEXT TRACK
+    - MEDIA STOP
+    - MEDIA PLAY PAUSE
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - HSV 0 255 255
+    - HSV 74 255 255
+    - HSV 169 255 255
+  - - {t: ▽, type: trans}
+    - AUDIO VOL DOWN
+    - AUDIO VOL UP
+    - AUDIO MUTE
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: held}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - QK BOOT
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
