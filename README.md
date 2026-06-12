@@ -19,7 +19,7 @@ building from this repository through QMK external userspace.
 
 ## Keymap Diagram
 
-![Voyager keymap](docs/keymap.svg)
+![Voyager keymap](docs/keymap.svg?raw=1&v=mac-getreuer-nav)
 
 The diagram is generated with
 [`keymap-drawer`](https://github.com/caksoylar/keymap-drawer). After setting up
