@@ -76,8 +76,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [L_NAV] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
     KC_TRANSPARENT, LCMD(KC_R),     LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),   KC_WBAK,        KC_WFWD,                                        KC_PAGE_UP,     KC_HOME,        KC_UP,          KC_END,         SRCHSEL,        KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_LCTL,        KC_LALT,        KC_LGUI,        KC_LSFT,        KC_TRANSPARENT,                                 KC_PGDN,        KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_DEL,         KC_TRANSPARENT,
-    KC_TRANSPARENT, LCMD(KC_Z),     LCMD(KC_X),     LCMD(KC_C),     LCMD(KC_V),     KC_TRANSPARENT,                                 KC_TRANSPARENT, SELWBAK,        SELWORD,        SELLINE,        KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_LCTL,        KC_LALT,        KC_LGUI,        KC_LSFT,        MS_BTN1,                                        KC_PGDN,        KC_LEFT,        KC_DOWN,        KC_RIGHT,       LCTL(LCMD(LSFT(KC_4))),KC_TRANSPARENT,
+    KC_TRANSPARENT, LCMD(KC_Z),     LCMD(LSFT(KC_Z)),LCMD(KC_C),    LCMD(KC_V),     KC_TRANSPARENT,                                 LCMD(KC_L),     SELWBAK,        SELWORD,        SELLINE,        LCTL(LCMD(LSFT(KC_3))),KC_TRANSPARENT,
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 LCMD(KC_TAB),   QK_LLCK
   ),
   [L_NUM] = LAYOUT_voyager(

@@ -103,24 +103,24 @@ layers:
     - LALT
     - LGUI
     - LSFT
-    - {t: ▽, type: trans}
+    - Click
     - PGDN
     - LEFT
     - DOWN
     - RIGHT
-    - DEL
+    - Area Copy
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - Cmd+Z
-    - Cmd+X
+    - Redo
     - Cmd+C
     - Cmd+V
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - Cmd+L
     - Sel Word Back
     - Sel Word
     - Sel Line
-    - {t: ▽, type: trans}
+    - Screen Copy
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
