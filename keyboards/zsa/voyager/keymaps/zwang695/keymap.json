@@ -1,0 +1,6 @@
+{
+    "modules": [
+        "getreuer/select_word",
+        "getreuer/cyclotab"
+    ]
+}

@@ -15,6 +15,7 @@ enum layers {
 
 enum custom_keycodes {
   ARROW = ZSA_SAFE_RANGE,
+  SRCHSEL,
   RGB_SLD,
   HSV_0_255_255,
   HSV_74_255_255,
@@ -73,11 +74,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
   [L_NAV] = LAYOUT_voyager(
-    RM_TOGG,        QK_KB,          RM_NEXT,        RGB_SLD,        RM_VALD,        RM_VALU,                                        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, MT(MOD_LCTL, QK_BOOT),
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_AUDIO_MUTE,  KC_TRANSPARENT,                                 KC_PAGE_UP,     KC_HOME,        KC_UP,          KC_END,         KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_MEDIA_STOP,  KC_MEDIA_PLAY_PAUSE,KC_TRANSPARENT,                                 KC_PGDN,        KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, HSV_0_255_255,  HSV_0_255_255,  HSV_169_255_255,                                KC_TRANSPARENT, LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),   KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, LCMD(KC_R),     LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),   KC_WBAK,        KC_WFWD,                                        KC_PAGE_UP,     KC_HOME,        KC_UP,          KC_END,         SRCHSEL,        KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_LCTL,        KC_LALT,        KC_LGUI,        KC_LSFT,        KC_TRANSPARENT,                                 KC_PGDN,        KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_DEL,         KC_TRANSPARENT,
+    KC_TRANSPARENT, LCMD(KC_Z),     LCMD(KC_X),     LCMD(KC_C),     LCMD(KC_V),     KC_TRANSPARENT,                                 KC_TRANSPARENT, SELWBAK,        SELWORD,        SELLINE,        KC_TRANSPARENT, KC_TRANSPARENT,
+                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 LCMD(KC_TAB),   QK_LLCK
   ),
   [L_NUM] = LAYOUT_voyager(
     KC_ESCAPE,      KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,                                          KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,
@@ -153,6 +154,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
+    case SRCHSEL:
+      if (record->event.pressed) {
+        const uint8_t real_mods = get_mods();
+        const uint8_t weak_mods = get_weak_mods();
+        const uint8_t oneshot_mods =
+#ifndef NO_ACTION_ONESHOT
+          get_oneshot_mods()
+#else
+          0
+#endif
+          ;
+
+        clear_mods();
+        clear_weak_mods();
+#ifndef NO_ACTION_ONESHOT
+        clear_oneshot_mods();
+#endif
+        tap_code16(LCMD(KC_C));
+        wait_ms(50);
+        tap_code16(LCMD(KC_T));
+        wait_ms(50);
+        tap_code16(LCMD(KC_V));
+        tap_code(KC_ENTER);
+        set_mods(real_mods);
+        set_weak_mods(weak_mods);
+#ifndef NO_ACTION_ONESHOT
+        set_oneshot_mods(oneshot_mods);
+#endif
+      }
+      return false;
     case UND_NAV:
       if (record->tap.count > 0) {
         if (record->event.pressed) {
