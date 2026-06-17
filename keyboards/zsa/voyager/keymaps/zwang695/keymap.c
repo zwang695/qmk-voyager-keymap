@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "navigator.h"
 #include "version.h"
 #define MOON_LED_LEVEL LED_LEVEL
 #ifndef ZSA_SAFE_RANGE
@@ -39,6 +40,13 @@ enum custom_keycodes {
 #define CTL_SCLN RCTL_T(KC_SCLN)
 #define CAG_MODS (MOD_BIT(KC_LEFT_CTRL) | MOD_BIT(KC_LEFT_ALT) | MOD_BIT(KC_LEFT_GUI))
 
+static void update_status_leds(void) {
+  STATUS_LED_1(is_layer_locked(L_MOUSE));
+  STATUS_LED_2(set_scrolling);
+  STATUS_LED_3(is_layer_locked(L_CURSOR) || is_layer_locked(L_NUM));
+  STATUS_LED_4(is_caps_word_on());
+}
+
 const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
   LAYOUT_voyager(
     '*', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', '*',
@@ -47,6 +55,22 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
     '*', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', '*',
                          '*', '*',       '*', '*'
   );
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+  update_status_leds();
+  return state;
+}
+
+bool layer_lock_set_user(layer_state_t locked_layers) {
+  (void)locked_layers;
+  update_status_leds();
+  return true;
+}
+
+void caps_word_set_user(bool active) {
+  (void)active;
+  update_status_leds();
+}
 
 bool get_speculative_hold(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -246,4 +270,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
   }
   return true;
+}
+
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+  (void)record;
+  switch (keycode) {
+    case DRAG_SCROLL:
+    case TOGGLE_SCROLL:
+      update_status_leds();
+      break;
+  }
 }
