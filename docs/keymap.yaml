@@ -1,38 +1,190 @@
 layout: {qmk_keyboard: zsa/voyager, layout_name: LAYOUT}
 layers:
   Base:
-    - ["+", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-"]
-    - [TAB, Q, W, E, R, T, Y, U, I, O, P, "\\"]
-    - [ESC, {t: A, h: CTL}, {t: S, h: OPT}, {t: D, h: CMD}, {t: F, h: SFT}, {t: G, h: CAG}, {t: H, h: CAG}, {t: J, h: SFT}, {t: K, h: CMD}, {t: L, h: OPT}, {t: ";", h: CTL}, "'"]
-    - [{t: Magic, h: held}, Z, X, C, V, B, N, M, ",", ., /, Caps Word]
-    - [{t: RET, h: Cursor}, {t: BSPC, h: Symbol}, {t: "_", h: Symbol}, {t: SPACE, h: Num}]
+  - [+, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-']
+  - [TAB, Q, W, E, R, T, Y, U, I, O, P, \]
+  - [ESC, {t: A, h: CTL}, {t: S, h: OPT}, {t: D, h: CMD}, {t: F, h: SFT}, {t: G, h: CAG}, {t: H, h: CAG}, {t: J, h: SFT}, {t: K, h: CMD}, {t: L, h: OPT}, {t: ';', h: CTL}, '''']
+  - [MO(L MAGIC), Z, X, C, V, B, N, M, ',', ., /, CW TOGG]
+  - ['LT(L CURSOR,ENTER)', 'LT(L SYM,BSPC)', {t: '_', h: Symbol}, 'LT(L NUM,SPACE)']
   Cursor:
-    - [TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS]
-    - [TRNS, Cmd+R, Prev Tab, Next Tab, "Cmd+[", "Cmd+]", PgUp, Home, Up, End, Search Sel, TRNS]
-    - [TRNS, LCTL, LALT, LGUI, LSFT, Click, PgDn, Left, Down, Right, Area Copy, TRNS]
-    - [TRNS, Cmd+Z, Redo, Cmd+C, Cmd+V, Cmd+Shift+V, Cmd+L, Sel Word Back, Sel Word, Sel Line, Screen Copy, TRNS]
-    - [TRNS, TRNS, Cycle Tab, Layer Lock]
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - '`'
+    - <
+    - '>'
+    - '-'
+    - '|'
+    - ^
+    - '{'
+    - '}'
+    - $
+    - '->'
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - '!'
+    - '*'
+    - /
+    - '='
+    - '&'
+    - '#'
+    - (
+    - )
+    - ;
+    - '"'
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - '~'
+    - +
+    - '['
+    - ']'
+    - '%'
+    - '@'
+    - ':'
+    - ','
+    - .
+    - ''''
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
   Symbol:
-    - [TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS]
-    - [TRNS, "`", "<", ">", "-", "|", "^", "{", "}", "$", "->", TRNS]
-    - [TRNS, "!", "*", /, "=", "&", "#", "(", ")", ";", "\"", TRNS]
-    - [TRNS, "~", "+", "[", "]", "%", "@", ":", ",", ., "'", TRNS]
-    - [TRNS, TRNS, TRNS, TRNS]
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - Cmd+R
+    - Prev Tab
+    - Next Tab
+    - Cmd+[
+    - Cmd+]
+    - PAGE UP
+    - HOME
+    - UP
+    - END
+    - Search Sel
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - LCTL
+    - LALT
+    - LGUI
+    - LSFT
+    - Click
+    - PGDN
+    - LEFT
+    - DOWN
+    - RIGHT
+    - Area Copy
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - Cmd+Z
+    - Redo
+    - Cmd+C
+    - Cmd+V
+    - Cmd+Shift+V
+    - Cmd+L
+    - Sel Word Back
+    - Sel Word
+    - Sel Line
+    - Screen Copy
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - Cycle Tab
+    - Layer Lock
   Num:
-    - [ESC, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11]
-    - [NO, /, "9", "8", "7", "*", NO, NO, "[", "]", NO, F12]
-    - [NO, "-", "3", "2", "1", "+", CAG, RSFT, RGUI, RALT, RCTL, NO]
-    - [NO, X, "6", "5", "4", "%", NO, NO, ",", ., NO, NO]
-    - ["0", NO, Layer Lock, NO]
+  - [ESC, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11]
+  - ['', /, '9', '8', '7', '*', '', '', '[', ']', '', F12]
+  - ['', '-', '3', '2', '1', +, CAG, RSFT, RGUI, RALT, RCTL, '']
+  - ['', X, '6', '5', '4', '%', '', '', ',', ., '', '']
+  - ['0', '', Layer Lock, '']
   Magic:
-    - [TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, RM TOGG, QK KB, RM NEXT, RGB SLD, RM VALD, RM VALU]
-    - [TRNS, Media Prev, Media Next, Media Stop, Media Play, TRNS, TRNS, TRNS, TRNS, HSV 0, HSV 74, HSV 169]
-    - [TRNS, Vol Down, Vol Up, Mute, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS]
-    - [TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, Boot]
-    - [TRNS, TRNS, TRNS, TRNS]
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - RM TOGG
+    - QK KB
+    - RM NEXT
+    - RGB SLD
+    - RM VALD
+    - RM VALU
+  - - {t: ▽, type: trans}
+    - MEDIA PREV TRACK
+    - MEDIA NEXT TRACK
+    - MEDIA STOP
+    - MEDIA PLAY PAUSE
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - HSV 0 255 255
+    - HSV 74 255 255
+    - HSV 169 255 255
+  - - {t: ▽, type: trans}
+    - AUDIO VOL DOWN
+    - AUDIO VOL UP
+    - AUDIO MUTE
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - QK BOOT
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
   Mouse:
-    - [NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO]
-    - [Mouse Off, Drag Scroll, Scroll Toggle, CPI-, CPI+, NO, NO, NO, NO, NO, NO, NO]
-    - [ESC, OSM CTL, OSM ALT, OSM GUI, OSM SFT, Back Btn, NO, CPI+, CPI-, Scroll Toggle, NO, NO]
-    - [NO, Cmd+Z, Cmd+X, Cmd+C, Cmd+V, Forward Btn, NO, NO, NO, NO, NO, NO]
-    - [Click, Right Click, Layer Lock, NO]
+  - ['', '', '', '', '', '', '', '', '', '', '', '']
+  - [MO(L MOUSE), Drag Scroll, Scroll Toggle, CPI-, CPI+, '', '', '', '', '', '', '']
+  - - ESC
+    - {t: LCTL, h: sticky}
+    - {t: LALT, h: sticky}
+    - {t: LGUI, h: sticky}
+    - {t: LSFT, h: sticky}
+    - Back Btn
+    - ''
+    - CPI+
+    - CPI-
+    - Scroll Toggle
+    - ''
+    - ''
+  - ['', Cmd+Z, Cmd+X, Cmd+C, Cmd+V, Forward Btn, '', '', '', '', '', '']
+  - [Click, Right Click, Layer Lock, '']
