@@ -173,7 +173,7 @@ layers:
     - {t: ▽, type: trans}
   Mouse:
   - ['', '', '', '', '', '', '', '', '', '', '', '']
-  - [MO(L MOUSE), Drag Scroll, Scroll Toggle, CPI-, CPI+, '', '', '', '', '', '', '']
+  - [MO(L MOUSE), Drag Scroll, Scroll Toggle, CPI-, CPI+, Gesture, '', '', '', '', '', '']
   - - ESC
     - {t: LCTL, h: sticky}
     - {t: LALT, h: sticky}
