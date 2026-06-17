@@ -21,6 +21,9 @@ building from this repository through QMK external userspace.
 
 ![Voyager keymap](docs/keymap.svg?raw=1&v=mac-getreuer-nav)
 
+The Go60-to-Voyager physical-subset diff is documented in
+[`docs/go60-voyager-diff.md`](docs/go60-voyager-diff.md).
+
 The diagram is generated with
 [`keymap-drawer`](https://github.com/caksoylar/keymap-drawer). After setting up
 the QMK CLI below, install `keymap-drawer` and redraw with:
@@ -41,10 +44,12 @@ diagram files need to be committed.
 
 ## Local Setup
 
-Install the QMK CLI, then set up upstream QMK:
+Install the QMK CLI, then set up ZSA's QMK fork. This keymap uses ZSA
+Navigator/Automouse support for the Voyager trackball layer, so it should be
+built against `zsa/qmk_firmware`.
 
 ```sh
-qmk setup qmk/qmk_firmware
+qmk setup zsa/qmk_firmware
 ```
 
 Configure this repository as your QMK external userspace:
@@ -67,5 +72,5 @@ Or compile all userspace targets from `qmk.json`:
 qmk userspace-compile
 ```
 
-GitHub Actions also builds this keymap against `qmk/qmk_firmware@master`
+GitHub Actions also builds this keymap against `zsa/qmk_firmware@master`
 on every push and manual workflow dispatch.
