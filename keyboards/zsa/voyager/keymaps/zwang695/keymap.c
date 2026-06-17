@@ -19,6 +19,7 @@ enum custom_keycodes {
   ARROW = ZSA_SAFE_RANGE,
   SRCHSEL,
   UNDS_SYM,
+  GESTURE,
   CAG_MOD,
   RGB_SLD,
   HSV_0_255_255,
@@ -39,6 +40,20 @@ enum custom_keycodes {
 #define OPT_L LALT_T(KC_L)
 #define CTL_SCLN RCTL_T(KC_SCLN)
 #define CAG_MODS (MOD_BIT(KC_LEFT_CTRL) | MOD_BIT(KC_LEFT_ALT) | MOD_BIT(KC_LEFT_GUI))
+#define GESTURE_STROKE_SIZE 300
+#define GESTURE_MOVEMENT_THRESHOLD 3
+#define GESTURE_COOLDOWN_MS 500
+
+static bool unds_sym_active = false;
+static bool unds_sym_interrupted = false;
+static uint16_t unds_sym_timer = 0;
+
+static bool gesture_active = false;
+static bool gesture_scroll_restore = false;
+static bool gesture_cooling_down = false;
+static uint16_t gesture_cooldown_timer = 0;
+static int32_t gesture_accum_x = 0;
+static int32_t gesture_accum_y = 0;
 
 static void update_status_leds(layer_state_t state) {
   STATUS_LED_1(layer_state_cmp(state, L_MOUSE));
@@ -127,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [L_MOUSE] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-    MO(L_MOUSE),    DRAG_SCROLL,    TOGGLE_SCROLL,  NAVIGATOR_DEC_CPI,NAVIGATOR_INC_CPI,KC_NO,                                      KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
+    MO(L_MOUSE),    DRAG_SCROLL,    TOGGLE_SCROLL,  NAVIGATOR_DEC_CPI,NAVIGATOR_INC_CPI,GESTURE,                                    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
     KC_ESCAPE,      OSM(MOD_LCTL),  OSM(MOD_LALT),  OSM(MOD_LGUI),  OSM(MOD_LSFT),  KC_MS_BTN4,                                     KC_NO,          NAVIGATOR_INC_CPI,NAVIGATOR_DEC_CPI,TOGGLE_SCROLL,KC_NO,        KC_NO,
     KC_NO,          LCMD(KC_Z),     LCMD(KC_X),     LCMD(KC_C),     LCMD(KC_V),     KC_MS_BTN5,                                     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
                                                     KC_MS_BTN1,     KC_MS_BTN2,                                      QK_LLCK,        KC_NO
@@ -144,7 +159,71 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
+static int32_t abs32(int32_t value) {
+  return value < 0 ? -value : value;
+}
+
+static void reset_gesture_accumulation(void) {
+  gesture_accum_x = 0;
+  gesture_accum_y = 0;
+}
+
+static void tap_gesture_key(void) {
+  if (abs32(gesture_accum_x) > abs32(gesture_accum_y)) {
+    tap_code16(LCTL(gesture_accum_x > 0 ? KC_RIGHT : KC_LEFT));
+  } else {
+    tap_code16(LCTL(gesture_accum_y > 0 ? KC_DOWN : KC_UP));
+  }
+}
+
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+  if (!gesture_active) {
+    return mouse_report;
+  }
+
+  if (gesture_cooling_down) {
+    if (timer_elapsed(gesture_cooldown_timer) < GESTURE_COOLDOWN_MS) {
+      mouse_report.x = 0;
+      mouse_report.y = 0;
+      mouse_report.h = 0;
+      mouse_report.v = 0;
+      return mouse_report;
+    }
+    gesture_cooling_down = false;
+  }
+
+  int16_t dx = mouse_report.x;
+  int16_t dy = mouse_report.y;
+
+  if (abs32(dx) < GESTURE_MOVEMENT_THRESHOLD) {
+    dx = 0;
+  }
+  if (abs32(dy) < GESTURE_MOVEMENT_THRESHOLD) {
+    dy = 0;
+  }
+
+  gesture_accum_x += dx;
+  gesture_accum_y += dy;
+
+  if (abs32(gesture_accum_x) + abs32(gesture_accum_y) >= GESTURE_STROKE_SIZE) {
+    tap_gesture_key();
+    reset_gesture_accumulation();
+    gesture_cooling_down = true;
+    gesture_cooldown_timer = timer_read();
+  }
+
+  mouse_report.x = 0;
+  mouse_report.y = 0;
+  mouse_report.h = 0;
+  mouse_report.v = 0;
+  return mouse_report;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (unds_sym_active && keycode != UNDS_SYM && record->event.pressed) {
+    unds_sym_interrupted = true;
+  }
+
   switch (keycode) {
     case ARROW:
       if (record->event.pressed) {
@@ -223,19 +302,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
     case UNDS_SYM:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(KC_UNDS);
-        } else {
-          unregister_code16(KC_UNDS);
-        }
+      if (record->event.pressed) {
+        unds_sym_active = true;
+        unds_sym_interrupted = false;
+        unds_sym_timer = timer_read();
+        layer_on(L_SYM);
       } else {
-        if (record->event.pressed) {
-          layer_on(L_SYM);
-        } else {
-          layer_off(L_SYM);
+        layer_off(L_SYM);
+        const bool tapped = unds_sym_active &&
+          !unds_sym_interrupted &&
+          timer_elapsed(unds_sym_timer) <= TAPPING_TERM;
+        unds_sym_active = false;
+        if (tapped) {
+          tap_code16(KC_UNDS);
         }
       }
+      return false;
+    case GESTURE:
+      if (record->event.pressed) {
+        gesture_active = true;
+        gesture_scroll_restore = set_scrolling;
+        gesture_cooling_down = false;
+        reset_gesture_accumulation();
+        set_scrolling = false;
+      } else {
+        gesture_active = false;
+        gesture_cooling_down = false;
+        reset_gesture_accumulation();
+        set_scrolling = gesture_scroll_restore;
+      }
+      update_status_leds(layer_state);
       return false;
     case CAG_MOD:
       if (record->event.pressed) {
