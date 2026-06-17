@@ -46,7 +46,10 @@ enum custom_keycodes {
 
 static bool unds_sym_active = false;
 static bool unds_sym_interrupted = false;
+static bool unds_sym_held = false;
+static bool unds_sym_quick_tap_armed = false;
 static uint16_t unds_sym_timer = 0;
+static uint16_t unds_sym_last_tap_timer = 0;
 
 static bool gesture_active = false;
 static bool gesture_scroll_restore = false;
@@ -304,10 +307,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case UNDS_SYM:
       if (record->event.pressed) {
         unds_sym_active = true;
-        unds_sym_interrupted = false;
         unds_sym_timer = timer_read();
+        if (unds_sym_quick_tap_armed &&
+            timer_elapsed(unds_sym_last_tap_timer) <= QUICK_TAP_TERM) {
+          unds_sym_quick_tap_armed = false;
+          unds_sym_interrupted = true;
+          unds_sym_held = true;
+          register_code16(KC_UNDS);
+          return false;
+        }
+        unds_sym_quick_tap_armed = false;
+        unds_sym_interrupted = false;
         layer_on(L_SYM);
       } else {
+        if (unds_sym_held) {
+          unregister_code16(KC_UNDS);
+          unds_sym_held = false;
+          unds_sym_active = false;
+          return false;
+        }
         layer_off(L_SYM);
         const bool tapped = unds_sym_active &&
           !unds_sym_interrupted &&
@@ -315,6 +333,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unds_sym_active = false;
         if (tapped) {
           tap_code16(KC_UNDS);
+          unds_sym_quick_tap_armed = true;
+          unds_sym_last_tap_timer = timer_read();
+        } else {
+          unds_sym_quick_tap_armed = false;
         }
       }
       return false;
