@@ -6,7 +6,7 @@ layers:
   - [ESC, {t: A, h: CTL}, {t: S, h: OPT}, {t: D, h: CMD}, {t: F, h: SFT}, G, H, {t: J, h: SFT}, {t: K, h: CMD}, {t: L, h: OPT}, {t: ';', h: CTL}, '''']
   - [MO(L MAGIC), Z, X, C, V, B, N, M, ',', ., /, CW TOGG]
   - ['LT(L CURSOR,ENTER)', 'LT(L SYM,BSPC)', {t: '_', h: Symbol}, 'LT(L NUM,SPACE)']
-  Cursor:
+  Symbol:
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -59,7 +59,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-  Symbol:
+  Cursor:
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
