@@ -3,7 +3,7 @@ layers:
   Base:
   - [+, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-']
   - [TAB, Q, W, E, R, T, Y, U, I, O, P, \]
-  - [ESC, {t: A, h: CTL}, {t: S, h: OPT}, {t: D, h: CMD}, {t: F, h: SFT}, {t: G, h: CAG}, {t: H, h: CAG}, {t: J, h: SFT}, {t: K, h: CMD}, {t: L, h: OPT}, {t: ';', h: CTL}, '''']
+  - [ESC, {t: A, h: CTL}, {t: S, h: OPT}, {t: D, h: CMD}, {t: F, h: SFT}, G, H, {t: J, h: SFT}, {t: K, h: CMD}, {t: L, h: OPT}, {t: ';', h: CTL}, '''']
   - [MO(L MAGIC), Z, X, C, V, B, N, M, ',', ., /, CW TOGG]
   - ['LT(L CURSOR,ENTER)', 'LT(L SYM,BSPC)', {t: '_', h: Symbol}, 'LT(L NUM,SPACE)']
   Cursor:
@@ -115,7 +115,7 @@ layers:
   Num:
   - [ESC, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11]
   - ['', /, '9', '8', '7', '*', '', '', '[', ']', '', F12]
-  - ['', '-', '3', '2', '1', +, CAG, RSFT, RGUI, RALT, RCTL, '']
+  - ['', '-', '3', '2', '1', +, '', RSFT, RGUI, RALT, RCTL, '']
   - ['', X, '6', '5', '4', '%', '', '', ',', ., '', '']
   - ['0', '', Layer Lock, '']
   Magic:
