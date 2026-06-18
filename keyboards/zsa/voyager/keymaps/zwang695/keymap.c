@@ -107,6 +107,26 @@ bool get_speculative_hold(uint16_t keycode, keyrecord_t *record) {
   return false;
 }
 
+uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_keycode) {
+  (void)record;
+
+  if (!is_flow_tap_key(prev_keycode)) {
+    return 0;
+  }
+
+  switch (keycode) {
+    case SFT_F:
+    case SFT_J:
+      return FLOW_TAP_TERM_INDEX_SHIFT;
+  }
+
+  if (is_flow_tap_key(keycode)) {
+    return FLOW_TAP_TERM;
+  }
+
+  return 0;
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [L_BASE] = LAYOUT_voyager(
     KC_PLUS,        KC_1,           KC_2,           KC_3,           KC_4,           KC_5,                                           KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINUS,
