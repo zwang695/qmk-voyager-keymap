@@ -17,7 +17,7 @@ keys. Go60's extra upper thumb/navigation keys are listed separately.
 ```text
 = +        = 1       = 2       = 3       = 4       = 5          = 6       = 7       = 8       = 9       = 0       = -
 ~ TAB      = Q       = W       = E       = R       = T          = Y       = U       = I       = O       = P       = \
-~ ESC      = A/CTL   = S/OPT   = D/CMD   = F/SFT   ~ G/CAG      ~ H/CAG   = J/SFT   = K/CMD   ~ L/OPT   = ;/CTL   = '
+~ ESC      = A/CTL   = S/OPT   = D/CMD   = F/SFT   = G          = H       = J/SFT   = K/CMD   ~ L/OPT   = ;/CTL   = '
 = Magic    = Z       = X       = C       = V       = B          = N       = M       = ,       = .       = /       ~ CapsWord
                                   ~ RET/Cursor     ~ BSPC/Symbol                    ~ _/Symbol       ~ Space/Num
 ```
@@ -53,7 +53,7 @@ Unmapped Go60-only Symbol keys: all six Go60 extra thumb/navigation positions.
 ```text
 = ESC      = F1      = F2      = F3      = F4      = F5         = F6      = F7      = F8      = F9      = F10      = F11
 = NO       = /       = 9       = 8       = 7       = *          = NO      = NO      = [       = ]       = NO       = F12
-= NO       = -       = 3       = 2       = 1       = +          ~ CAG     = RSFT    = RGUI    = RALT    = RCTL     = NO
+= NO       = -       = 3       = 2       = 1       = +          = NO      = RSFT    = RGUI    = RALT    = RCTL     = NO
 = NO       = X       = 6       = 5       = 4       = %          = NO      = NO      = ,       = .       = NO       = NO
                                   = 0              ~ NO                           ~ LayerLock = NO
 ```

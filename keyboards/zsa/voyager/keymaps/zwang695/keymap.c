@@ -20,7 +20,6 @@ enum custom_keycodes {
   SRCHSEL,
   UNDS_SYM,
   GESTURE,
-  CAG_MOD,
   RGB_SLD,
   HSV_0_255_255,
   HSV_74_255_255,
@@ -33,13 +32,10 @@ enum custom_keycodes {
 #define OPT_S LALT_T(KC_S)
 #define CMD_D LGUI_T(KC_D)
 #define SFT_F LSFT_T(KC_F)
-#define CAG_G MT(MOD_LCTL | MOD_LALT | MOD_LGUI, KC_G)
-#define CAG_H MT(MOD_LCTL | MOD_LALT | MOD_LGUI, KC_H)
 #define SFT_J RSFT_T(KC_J)
 #define CMD_K RGUI_T(KC_K)
 #define OPT_L LALT_T(KC_L)
 #define CTL_SCLN RCTL_T(KC_SCLN)
-#define CAG_MODS (MOD_BIT(KC_LEFT_CTRL) | MOD_BIT(KC_LEFT_ALT) | MOD_BIT(KC_LEFT_GUI))
 #define GESTURE_STROKE_SIZE 300
 #define GESTURE_MOVEMENT_THRESHOLD 3
 #define GESTURE_COOLDOWN_MS 500
@@ -96,8 +92,6 @@ bool get_speculative_hold(uint16_t keycode, keyrecord_t *record) {
     case OPT_S:
     case CMD_D:
     case SFT_F:
-    case CAG_G:
-    case CAG_H:
     case SFT_J:
     case CMD_K:
     case OPT_L:
@@ -131,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [L_BASE] = LAYOUT_voyager(
     KC_PLUS,        KC_1,           KC_2,           KC_3,           KC_4,           KC_5,                                           KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINUS,
     KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,                                           KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLS,
-    KC_ESCAPE,      CTL_A,          OPT_S,          CMD_D,          SFT_F,          CAG_G,                                          CAG_H,          SFT_J,          CMD_K,          OPT_L,          CTL_SCLN,       KC_QUOTE,
+    KC_ESCAPE,      CTL_A,          OPT_S,          CMD_D,          SFT_F,          KC_G,                                           KC_H,           SFT_J,          CMD_K,          OPT_L,          CTL_SCLN,       KC_QUOTE,
     MO(L_MAGIC),    KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       CW_TOGG,
                                                     LT(L_CURSOR, KC_ENTER),LT(L_SYM, KC_BSPC),                       UNDS_SYM,       LT(L_NUM, KC_SPACE)
   ),
@@ -152,7 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [L_NUM] = LAYOUT_voyager(
     KC_ESCAPE,      KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,                                          KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,
     KC_NO,          KC_SLSH,        KC_9,           KC_8,           KC_7,           KC_ASTR,                                        KC_NO,          KC_NO,          KC_LBRC,        KC_RBRC,        KC_NO,          KC_F12,
-    KC_NO,          KC_MINS,        KC_3,           KC_2,           KC_1,           KC_PLUS,                                        CAG_MOD,        KC_RSFT,        KC_RGUI,        KC_RALT,        KC_RCTL,        KC_NO,
+    KC_NO,          KC_MINS,        KC_3,           KC_2,           KC_1,           KC_PLUS,                                        KC_NO,          KC_RSFT,        KC_RGUI,        KC_RALT,        KC_RCTL,        KC_NO,
     KC_NO,          KC_X,           KC_6,           KC_5,           KC_4,           KC_PERC,                                        KC_NO,          KC_NO,          KC_COMM,        KC_DOT,         KC_NO,          KC_NO,
                                                     KC_0,           KC_NO,                                           QK_LLCK,        KC_NO
   ),
@@ -374,14 +368,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_scrolling = gesture_scroll_restore;
       }
       update_status_leds(layer_state);
-      return false;
-    case CAG_MOD:
-      if (record->event.pressed) {
-        add_mods(CAG_MODS);
-      } else {
-        del_mods(CAG_MODS);
-      }
-      send_keyboard_report();
       return false;
     case RGB_SLD:
       if (record->event.pressed) {
