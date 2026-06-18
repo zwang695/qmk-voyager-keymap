@@ -42,7 +42,7 @@ Unmapped Go60-only Cursor keys: `Cmd+F`, `Cmd+Shift+G`, `Cmd+G`.
 = TRNS     = TRNS    = TRNS    = TRNS    = TRNS    = TRNS       = TRNS    = TRNS    = TRNS    = TRNS    = TRNS     = TRNS
 = TRNS     = `       = <       = >       = -       = |          = ^       = {       = }       = $       = ->       = TRNS
 = TRNS     = !       = *       = /       = =       = &          = #       = (       = )       = ;       = "        = TRNS
-= TRNS     = ~       = +       = [       = ]       = %          = @       = :       = ,       = .       = '        = TRNS
+= TRNS     = ~       = +       = [       = ]       = %          = @       = :       ~ '       = .       ~ ?        = TRNS
                                   = TRNS           = TRNS                         = TRNS     = TRNS
 ```
 
