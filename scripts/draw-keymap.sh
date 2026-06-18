@@ -18,7 +18,7 @@ qmk c2json --no-cpp \
 
 keymap parse \
   -c 12 \
-  --layer-names Base Cursor Symbol Num Magic Mouse \
+  --layer-names Base Symbol Cursor Num Magic Mouse \
   -q "$tmp_json" \
   -o "$tmp_yaml"
 
