@@ -18,7 +18,6 @@ enum layers {
 enum custom_keycodes {
   ARROW = ZSA_SAFE_RANGE,
   SRCHSEL,
-  UNDS_SFT,
   GESTURE,
   RGB_SLD,
   HSV_0_255_255,
@@ -39,10 +38,6 @@ enum custom_keycodes {
 #define GESTURE_STROKE_SIZE 300
 #define GESTURE_MOVEMENT_THRESHOLD 3
 #define GESTURE_COOLDOWN_MS 500
-
-static bool unds_sft_active = false;
-static bool unds_sft_held = false;
-static uint16_t unds_sft_timer = 0;
 
 static bool gesture_active = false;
 static bool gesture_scroll_restore = false;
@@ -124,13 +119,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,                                           KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLS,
     KC_ESCAPE,      CTL_A,          OPT_S,          CMD_D,          SFT_F,          KC_G,                                           KC_H,           SFT_J,          CMD_K,          OPT_L,          CTL_SCLN,       KC_QUOTE,
     MO(L_MAGIC),    KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       CW_TOGG,
-                                                    LT(L_CURSOR, KC_BSPC),UNDS_SFT,                                  LT(L_SYM, KC_ENTER),LT(L_NUM, KC_SPACE)
+                                                    LT(L_CURSOR, KC_BSPC),KC_LSFT,                                   LT(L_SYM, KC_ENTER),LT(L_NUM, KC_SPACE)
   ),
   [L_SYM] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
     KC_TRANSPARENT, KC_GRAVE,       KC_LABK,        KC_RABK,        KC_MINS,        KC_PIPE,                                        KC_CIRC,        KC_LCBR,        KC_RCBR,        KC_DLR,         ARROW,          KC_TRANSPARENT,
     KC_TRANSPARENT, KC_EXLM,        KC_ASTR,        KC_SLSH,        KC_EQUAL,       KC_AMPR,                                        KC_HASH,        KC_LPRN,        KC_RPRN,        KC_SCLN,        KC_DQUO,        KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_TILD,        KC_PLUS,        KC_LBRC,        KC_RBRC,        KC_PERC,                                        KC_AT,          KC_COLN,        KC_QUOT,        KC_DOT,         KC_QUES,        KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_TILD,        KC_PLUS,        KC_LBRC,        KC_RBRC,        KC_PERC,                                        KC_AT,          KC_COLN,        KC_QUOT,        KC_UNDS,        KC_QUES,        KC_TRANSPARENT,
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
   [L_CURSOR] = LAYOUT_voyager(
@@ -234,13 +229,6 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (unds_sft_active && keycode != UNDS_SFT && record->event.pressed) {
-    if (!unds_sft_held) {
-      register_code(KC_LSFT);
-      unds_sft_held = true;
-    }
-  }
-
   switch (keycode) {
     case ARROW:
       if (record->event.pressed) {
@@ -316,26 +304,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifndef NO_ACTION_ONESHOT
         set_oneshot_mods(oneshot_mods);
 #endif
-      }
-      return false;
-    case UNDS_SFT:
-      if (record->event.pressed) {
-        unds_sft_active = true;
-        unds_sft_held = false;
-        unds_sft_timer = timer_read();
-      } else {
-        if (unds_sft_held) {
-          unregister_code(KC_LSFT);
-          unds_sft_held = false;
-          unds_sft_active = false;
-          return false;
-        }
-        const bool tapped = unds_sft_active &&
-          timer_elapsed(unds_sft_timer) <= TAPPING_TERM;
-        unds_sft_active = false;
-        if (tapped) {
-          tap_code16(KC_UNDS);
-        }
       }
       return false;
     case GESTURE:
