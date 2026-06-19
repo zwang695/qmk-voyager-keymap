@@ -18,7 +18,7 @@ enum layers {
 enum custom_keycodes {
   ARROW = ZSA_SAFE_RANGE,
   SRCHSEL,
-  UNDS_SYM,
+  UNDS_SFT,
   GESTURE,
   RGB_SLD,
   HSV_0_255_255,
@@ -40,12 +40,9 @@ enum custom_keycodes {
 #define GESTURE_MOVEMENT_THRESHOLD 3
 #define GESTURE_COOLDOWN_MS 500
 
-static bool unds_sym_active = false;
-static bool unds_sym_interrupted = false;
-static bool unds_sym_held = false;
-static bool unds_sym_quick_tap_armed = false;
-static uint16_t unds_sym_timer = 0;
-static uint16_t unds_sym_last_tap_timer = 0;
+static bool unds_sft_active = false;
+static bool unds_sft_held = false;
+static uint16_t unds_sft_timer = 0;
 
 static bool gesture_active = false;
 static bool gesture_scroll_restore = false;
@@ -127,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,                                           KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLS,
     KC_ESCAPE,      CTL_A,          OPT_S,          CMD_D,          SFT_F,          KC_G,                                           KC_H,           SFT_J,          CMD_K,          OPT_L,          CTL_SCLN,       KC_QUOTE,
     MO(L_MAGIC),    KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       CW_TOGG,
-                                                    LT(L_CURSOR, KC_ENTER),LT(L_SYM, KC_BSPC),                       UNDS_SYM,       LT(L_NUM, KC_SPACE)
+                                                    LT(L_CURSOR, KC_BSPC),UNDS_SFT,                                  LT(L_SYM, KC_ENTER),LT(L_NUM, KC_SPACE)
   ),
   [L_SYM] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
@@ -237,8 +234,11 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (unds_sym_active && keycode != UNDS_SYM && record->event.pressed) {
-    unds_sym_interrupted = true;
+  if (unds_sft_active && keycode != UNDS_SFT && record->event.pressed) {
+    if (!unds_sft_held) {
+      register_code(KC_LSFT);
+      unds_sft_held = true;
+    }
   }
 
   switch (keycode) {
@@ -318,39 +318,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
       }
       return false;
-    case UNDS_SYM:
+    case UNDS_SFT:
       if (record->event.pressed) {
-        unds_sym_active = true;
-        unds_sym_timer = timer_read();
-        if (unds_sym_quick_tap_armed &&
-            timer_elapsed(unds_sym_last_tap_timer) <= QUICK_TAP_TERM) {
-          unds_sym_quick_tap_armed = false;
-          unds_sym_interrupted = true;
-          unds_sym_held = true;
-          register_code16(KC_UNDS);
-          return false;
-        }
-        unds_sym_quick_tap_armed = false;
-        unds_sym_interrupted = false;
-        layer_on(L_SYM);
+        unds_sft_active = true;
+        unds_sft_held = false;
+        unds_sft_timer = timer_read();
       } else {
-        if (unds_sym_held) {
-          unregister_code16(KC_UNDS);
-          unds_sym_held = false;
-          unds_sym_active = false;
+        if (unds_sft_held) {
+          unregister_code(KC_LSFT);
+          unds_sft_held = false;
+          unds_sft_active = false;
           return false;
         }
-        layer_off(L_SYM);
-        const bool tapped = unds_sym_active &&
-          !unds_sym_interrupted &&
-          timer_elapsed(unds_sym_timer) <= TAPPING_TERM;
-        unds_sym_active = false;
+        const bool tapped = unds_sft_active &&
+          timer_elapsed(unds_sft_timer) <= TAPPING_TERM;
+        unds_sft_active = false;
         if (tapped) {
           tap_code16(KC_UNDS);
-          unds_sym_quick_tap_armed = true;
-          unds_sym_last_tap_timer = timer_read();
-        } else {
-          unds_sym_quick_tap_armed = false;
         }
       }
       return false;
