@@ -3,9 +3,9 @@ layers:
   Base:
   - [+, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-']
   - [TAB, Q, W, E, R, T, Y, U, I, O, P, \]
-  - [ESC, {t: A, h: CTL}, {t: S, h: OPT}, {t: D, h: CMD}, {t: F, h: SFT}, G, H, {t: J, h: SFT}, {t: K, h: CMD}, {t: L, h: OPT}, {t: ';', h: CTL}, '''']
+  - [ESC, {t: A, h: CTL}, {t: S, h: OPT}, {t: D, h: CMD}, SYM F, G, H, SYM J, {t: K, h: CMD}, {t: L, h: OPT}, {t: ';', h: CTL}, '''']
   - [MO(L MAGIC), Z, X, C, V, B, N, M, ',', ., /, CW TOGG]
-  - ['LT(L CURSOR,BSPC)', LSFT, 'LT(L SYM,ENTER)', 'LT(L NUM,SPACE)']
+  - ['LT(L CURSOR,BSPC)', LSFT, ENTER, 'LT(L NUM,SPACE)']
   Symbol:
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
