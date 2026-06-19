@@ -30,8 +30,8 @@ enum custom_keycodes {
 #define CTL_A LCTL_T(KC_A)
 #define OPT_S LALT_T(KC_S)
 #define CMD_D LGUI_T(KC_D)
-#define SFT_F LSFT_T(KC_F)
-#define SFT_J RSFT_T(KC_J)
+#define SYM_F LT(L_SYM, KC_F)
+#define SYM_J LT(L_SYM, KC_J)
 #define CMD_K RGUI_T(KC_K)
 #define OPT_L LALT_T(KC_L)
 #define CTL_SCLN RCTL_T(KC_SCLN)
@@ -83,8 +83,8 @@ bool get_speculative_hold(uint16_t keycode, keyrecord_t *record) {
     case CTL_A:
     case OPT_S:
     case CMD_D:
-    case SFT_F:
-    case SFT_J:
+    case SYM_F:
+    case SYM_J:
     case CMD_K:
     case OPT_L:
     case CTL_SCLN:
@@ -101,8 +101,8 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_
   }
 
   switch (keycode) {
-    case SFT_F:
-    case SFT_J:
+    case SYM_F:
+    case SYM_J:
       return FLOW_TAP_TERM_INDEX_SHIFT;
   }
 
@@ -117,9 +117,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [L_BASE] = LAYOUT_voyager(
     KC_PLUS,        KC_1,           KC_2,           KC_3,           KC_4,           KC_5,                                           KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINUS,
     KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,                                           KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLS,
-    KC_ESCAPE,      CTL_A,          OPT_S,          CMD_D,          SFT_F,          KC_G,                                           KC_H,           SFT_J,          CMD_K,          OPT_L,          CTL_SCLN,       KC_QUOTE,
+    KC_ESCAPE,      CTL_A,          OPT_S,          CMD_D,          SYM_F,          KC_G,                                           KC_H,           SYM_J,          CMD_K,          OPT_L,          CTL_SCLN,       KC_QUOTE,
     MO(L_MAGIC),    KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       CW_TOGG,
-                                                    LT(L_CURSOR, KC_BSPC),KC_LSFT,                                   LT(L_SYM, KC_ENTER),LT(L_NUM, KC_SPACE)
+                                                    LT(L_CURSOR, KC_BSPC),KC_LSFT,                                   KC_ENTER,       LT(L_NUM, KC_SPACE)
   ),
   [L_SYM] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
