@@ -173,18 +173,18 @@ layers:
     - {t: ▽, type: trans}
   Mouse:
   - ['', '', '', '', '', '', '', '', '', '', '', '']
-  - [MO(L MOUSE), Drag Scroll, Scroll Toggle, CPI-, CPI+, Gesture, '', '', '', '', '', '']
-  - - ESC
+  - - MO(L MOUSE)
     - {t: LCTL, h: sticky}
     - {t: LALT, h: sticky}
     - {t: LGUI, h: sticky}
     - {t: LSFT, h: sticky}
-    - Back Btn
-    - ''
-    - CPI+
-    - CPI-
-    - Scroll Toggle
+    - Gesture
     - ''
     - ''
-  - ['', Cmd+Z, Cmd+X, Cmd+C, Cmd+V, Forward Btn, '', '', '', '', '', '']
-  - [Click, Right Click, Layer Lock, '']
+    - ''
+    - ''
+    - ''
+    - ''
+  - [ESC, '', Middle Click, Right Click, Click, '', '', CPI+, CPI-, Scroll Toggle, '', '']
+  - ['', CPI-, CPI+, Cmd+C, Cmd+V, '', '', '', '', '', '', '']
+  - [Drag Scroll, Scroll Toggle, Layer Lock, '']
