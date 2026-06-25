@@ -187,4 +187,4 @@ layers:
     - ''
   - [ESC, '', Middle Click, Right Click, Click, '', '', CPI+, CPI-, Scroll Toggle, '', '']
   - ['', CPI-, CPI+, Cmd+C, Cmd+V, '', '', '', '', '', '', '']
-  - [Drag Scroll, Scroll Toggle, Layer Lock, '']
+  - [Drag Scroll, Scroll Toggle, ENTER, '']
