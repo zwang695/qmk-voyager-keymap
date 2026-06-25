@@ -154,7 +154,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     MO(L_MOUSE),    OSM(MOD_LCTL),  OSM(MOD_LALT),  OSM(MOD_LGUI),  OSM(MOD_LSFT),  GESTURE,                                        KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
     KC_ESCAPE,      KC_NO,          KC_MS_BTN3,     KC_MS_BTN2,     KC_MS_BTN1,     KC_NO,                                          KC_NO,          NAVIGATOR_INC_CPI,NAVIGATOR_DEC_CPI,TOGGLE_SCROLL,KC_NO,        KC_NO,
     KC_NO,          NAVIGATOR_DEC_CPI,NAVIGATOR_INC_CPI,LCMD(KC_C), LCMD(KC_V),     KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-                                                    DRAG_SCROLL,    TOGGLE_SCROLL,                                  QK_LLCK,        KC_NO
+                                                    DRAG_SCROLL,    TOGGLE_SCROLL,                                  KC_ENTER,       KC_NO
   ),
 };
 
