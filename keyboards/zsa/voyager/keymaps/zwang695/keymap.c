@@ -151,10 +151,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [L_MOUSE] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-    MO(L_MOUSE),    OSM(MOD_LCTL),  OSM(MOD_LALT),  OSM(MOD_LGUI),  OSM(MOD_LSFT),  GESTURE,                                        KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-    KC_ESCAPE,      KC_NO,          KC_MS_BTN3,     KC_MS_BTN2,     KC_MS_BTN1,     KC_NO,                                          KC_NO,          NAVIGATOR_INC_CPI,NAVIGATOR_DEC_CPI,TOGGLE_SCROLL,KC_NO,        KC_NO,
-    KC_NO,          NAVIGATOR_DEC_CPI,NAVIGATOR_INC_CPI,LCMD(KC_C), LCMD(KC_V),     KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-                                                    DRAG_SCROLL,    TOGGLE_SCROLL,                                  KC_ENTER,       KC_NO
+    MO(L_MOUSE),    DRAG_SCROLL,    TOGGLE_SCROLL,  NAVIGATOR_DEC_CPI,NAVIGATOR_INC_CPI,GESTURE,                                    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
+    KC_ESCAPE,      OSM(MOD_LCTL),  OSM(MOD_LALT),  OSM(MOD_LGUI),  OSM(MOD_LSFT),  KC_MS_BTN4,                                     KC_NO,          NAVIGATOR_INC_CPI,NAVIGATOR_DEC_CPI,TOGGLE_SCROLL,KC_NO,        KC_NO,
+    KC_NO,          LCMD(KC_Z),     LCMD(KC_X),     LCMD(KC_C),     LCMD(KC_V),     KC_MS_BTN5,                                     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
+                                                    KC_MS_BTN1,     KC_MS_BTN2,                                      KC_ENTER,       KC_NO
   ),
 };
 
