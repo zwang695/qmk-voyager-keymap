@@ -139,7 +139,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - HSV 0 0 255
     - HSV 0 255 255
     - HSV 74 255 255
     - HSV 169 255 255
