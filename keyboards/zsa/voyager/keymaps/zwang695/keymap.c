@@ -12,13 +12,11 @@ enum layers {
   L_SYM,
   L_NUM,
   L_MAGIC,
-  L_MOUSE,
 };
 
 enum custom_keycodes {
   ARROW = ZSA_SAFE_RANGE,
   SRCHSEL,
-  GESTURE,
   RGB_SLD,
   HSV_0_0_255,
   HSV_0_255_255,
@@ -36,19 +34,7 @@ enum custom_keycodes {
 #define CMD_K RGUI_T(KC_K)
 #define OPT_L LALT_T(KC_L)
 #define CTL_SCLN RCTL_T(KC_SCLN)
-#define GESTURE_STROKE_SIZE 300
-#define GESTURE_MOVEMENT_THRESHOLD 3
-#define GESTURE_COOLDOWN_MS 500
-
-static bool gesture_active = false;
-static bool gesture_scroll_restore = false;
-static bool gesture_cooling_down = false;
-static uint16_t gesture_cooldown_timer = 0;
-static int32_t gesture_accum_x = 0;
-static int32_t gesture_accum_y = 0;
-
 static void update_status_leds(layer_state_t state) {
-  STATUS_LED_1(layer_state_cmp(state, L_MOUSE));
   STATUS_LED_2(set_scrolling);
   STATUS_LED_3(is_layer_locked(L_CURSOR) || is_layer_locked(L_NUM));
   STATUS_LED_4(is_caps_word_on());
@@ -116,7 +102,7 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [L_BASE] = LAYOUT_voyager(
-    KC_PLUS,        KC_1,           KC_2,           KC_3,           KC_4,           KC_5,                                           KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINUS,
+    DRAG_SCROLL,    TOGGLE_SCROLL,  NAVIGATOR_DEC_CPI,NAVIGATOR_INC_CPI,MS_BTN2,      MS_BTN1,                                        LCMD(KC_C),     LCMD(KC_V),     KC_LEFT,        KC_RIGHT,       KC_PLUS,        KC_MINUS,
     KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,                                           KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLS,
     KC_ESCAPE,      CTL_A,          OPT_S,          CMD_D,          SYM_F,          KC_G,                                           KC_H,           SYM_J,          CMD_K,          OPT_L,          CTL_SCLN,       KC_QUOTE,
     MO(L_MAGIC),    KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       CW_TOGG,
@@ -150,13 +136,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, QK_BOOT,
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
-  [L_MOUSE] = LAYOUT_voyager(
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-    MO(L_MOUSE),    DRAG_SCROLL,    TOGGLE_SCROLL,  NAVIGATOR_DEC_CPI,NAVIGATOR_INC_CPI,GESTURE,                                    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-    KC_ESCAPE,      OSM(MOD_LCTL),  OSM(MOD_LALT),  OSM(MOD_LGUI),  OSM(MOD_LSFT),  KC_MS_BTN4,                                     KC_NO,          NAVIGATOR_INC_CPI,NAVIGATOR_DEC_CPI,TOGGLE_SCROLL,KC_NO,        KC_NO,
-    KC_NO,          LCMD(KC_Z),     LCMD(KC_X),     LCMD(KC_C),     LCMD(KC_V),     KC_MS_BTN5,                                     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-                                                    KC_MS_BTN1,     KC_MS_BTN2,                                      KC_ENTER,       KC_NO
-  ),
 };
 
 
@@ -168,66 +147,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
-
-static int32_t abs32(int32_t value) {
-  return value < 0 ? -value : value;
-}
-
-static void reset_gesture_accumulation(void) {
-  gesture_accum_x = 0;
-  gesture_accum_y = 0;
-}
-
-static void tap_gesture_key(void) {
-  if (abs32(gesture_accum_x) > abs32(gesture_accum_y)) {
-    tap_code16(LCTL(gesture_accum_x > 0 ? KC_RIGHT : KC_LEFT));
-  } else {
-    tap_code16(LCTL(gesture_accum_y > 0 ? KC_DOWN : KC_UP));
-  }
-}
-
-report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-  if (!gesture_active) {
-    return mouse_report;
-  }
-
-  if (gesture_cooling_down) {
-    if (timer_elapsed(gesture_cooldown_timer) < GESTURE_COOLDOWN_MS) {
-      mouse_report.x = 0;
-      mouse_report.y = 0;
-      mouse_report.h = 0;
-      mouse_report.v = 0;
-      return mouse_report;
-    }
-    gesture_cooling_down = false;
-  }
-
-  int16_t dx = mouse_report.x;
-  int16_t dy = mouse_report.y;
-
-  if (abs32(dx) < GESTURE_MOVEMENT_THRESHOLD) {
-    dx = 0;
-  }
-  if (abs32(dy) < GESTURE_MOVEMENT_THRESHOLD) {
-    dy = 0;
-  }
-
-  gesture_accum_x += dx;
-  gesture_accum_y += dy;
-
-  if (abs32(gesture_accum_x) + abs32(gesture_accum_y) >= GESTURE_STROKE_SIZE) {
-    tap_gesture_key();
-    reset_gesture_accumulation();
-    gesture_cooling_down = true;
-    gesture_cooldown_timer = timer_read();
-  }
-
-  mouse_report.x = 0;
-  mouse_report.y = 0;
-  mouse_report.h = 0;
-  mouse_report.v = 0;
-  return mouse_report;
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -306,21 +225,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_oneshot_mods(oneshot_mods);
 #endif
       }
-      return false;
-    case GESTURE:
-      if (record->event.pressed) {
-        gesture_active = true;
-        gesture_scroll_restore = set_scrolling;
-        gesture_cooling_down = false;
-        reset_gesture_accumulation();
-        set_scrolling = false;
-      } else {
-        gesture_active = false;
-        gesture_cooling_down = false;
-        reset_gesture_accumulation();
-        set_scrolling = gesture_scroll_restore;
-      }
-      update_status_leds(layer_state);
       return false;
     case RGB_SLD:
       if (record->event.pressed) {

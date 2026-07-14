@@ -1,7 +1,6 @@
 {
     "modules": [
         "zsa/defaults",
-        "zsa/automouse",
         "zsa/navigator_trackball",
         "getreuer/select_word",
         "getreuer/cyclotab"
