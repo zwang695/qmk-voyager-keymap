@@ -102,7 +102,7 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [L_BASE] = LAYOUT_voyager(
-    DRAG_SCROLL,    TOGGLE_SCROLL,  NAVIGATOR_DEC_CPI,NAVIGATOR_INC_CPI,MS_BTN2,      MS_BTN1,                                        LCMD(KC_C),     LCMD(KC_V),     KC_LEFT,        KC_RIGHT,       KC_PLUS,        KC_MINUS,
+    TOGGLE_SCROLL,  NAVIGATOR_DEC_CPI,DRAG_SCROLL,  MS_BTN2,        MS_BTN1,        NAVIGATOR_INC_CPI,                              LCMD(KC_C),     LCMD(KC_V),     KC_LEFT,        KC_RIGHT,       KC_PLUS,        KC_MINUS,
     KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,                                           KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLS,
     KC_ESCAPE,      CTL_A,          OPT_S,          CMD_D,          SYM_F,          KC_G,                                           KC_H,           SYM_J,          CMD_K,          OPT_L,          CTL_SCLN,       KC_QUOTE,
     MO(L_MAGIC),    KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       CW_TOGG,
@@ -124,10 +124,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [L_NUM] = LAYOUT_voyager(
     KC_ESCAPE,      KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,                                          KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,
-    KC_NO,          KC_SLSH,        KC_9,           KC_8,           KC_7,           KC_ASTR,                                        KC_NO,          KC_NO,          KC_LBRC,        KC_RBRC,        KC_NO,          KC_F12,
-    KC_NO,          KC_MINS,        KC_3,           KC_2,           KC_1,           KC_PLUS,                                        KC_NO,          KC_RSFT,        KC_RGUI,        KC_RALT,        KC_RCTL,        KC_NO,
-    KC_NO,          KC_X,           KC_6,           KC_5,           KC_4,           KC_PERC,                                        KC_NO,          KC_NO,          KC_COMM,        KC_DOT,         KC_NO,          KC_NO,
-                                                    KC_0,           KC_NO,                                           QK_LLCK,        KC_NO
+    KC_TRANSPARENT, KC_SLSH,        KC_9,           KC_8,           KC_7,           KC_ASTR,                                        KC_TRANSPARENT, KC_TRANSPARENT, KC_LBRC,        KC_RBRC,        KC_TRANSPARENT, KC_F12,
+    KC_TRANSPARENT, KC_MINS,        KC_3,           KC_2,           KC_1,           KC_PLUS,                                        KC_TRANSPARENT, KC_RSFT,        KC_RGUI,        KC_RALT,        KC_RCTL,        KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_X,           KC_6,           KC_5,           KC_4,           KC_PERC,                                        KC_TRANSPARENT, KC_TRANSPARENT, KC_COMM,        KC_DOT,         KC_TRANSPARENT, KC_TRANSPARENT,
+                                                    KC_0,           KC_TRANSPARENT,                                  QK_LLCK,        KC_TRANSPARENT
   ),
   [L_MAGIC] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 RM_TOGG,        QK_KB,          RM_NEXT,        RGB_SLD,        RM_VALD,        RM_VALU,
