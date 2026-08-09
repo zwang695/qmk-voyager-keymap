@@ -1,7 +1,7 @@
 layout: {qmk_keyboard: zsa/voyager, layout_name: LAYOUT}
 layers:
   Base:
-  - [Scroll Toggle, CPI-, Drag Scroll, Right Click, Click, CPI+, Cmd+C, Cmd+V, LEFT, RIGHT, +, '-']
+  - [Scroll Toggle, CPI-, Drag Scroll, Right Click, Click, CPI+, Drag Scroll, Cmd+C, Cmd+V, Cmd+Z, LEFT, RIGHT]
   - [TAB, Q, W, E, R, T, Y, U, I, O, P, \]
   - [ESC, {t: A, h: CTL}, {t: S, h: OPT}, {t: D, h: CMD}, {t: F, h: Symbol}, G, H, {t: J, h: Symbol}, {t: K, h: CMD}, {t: L, h: OPT}, {t: ';', h: CTL}, '''']
   - [MO(L MAGIC), Z, X, C, V, B, N, M, ',', ., /, CW TOGG]

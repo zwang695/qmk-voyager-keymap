@@ -102,7 +102,7 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [L_BASE] = LAYOUT_voyager(
-    TOGGLE_SCROLL,  NAVIGATOR_DEC_CPI,DRAG_SCROLL,  MS_BTN2,        MS_BTN1,        NAVIGATOR_INC_CPI,                              LCMD(KC_C),     LCMD(KC_V),     KC_LEFT,        KC_RIGHT,       KC_PLUS,        KC_MINUS,
+    TOGGLE_SCROLL,  NAVIGATOR_DEC_CPI,DRAG_SCROLL,  MS_BTN2,        MS_BTN1,        NAVIGATOR_INC_CPI,                              DRAG_SCROLL,    LCMD(KC_C),     LCMD(KC_V),     LCMD(KC_Z),     KC_LEFT,        KC_RIGHT,
     KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,                                           KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLS,
     KC_ESCAPE,      CTL_A,          OPT_S,          CMD_D,          SYM_F,          KC_G,                                           KC_H,           SYM_J,          CMD_K,          OPT_L,          CTL_SCLN,       KC_QUOTE,
     MO(L_MAGIC),    KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       CW_TOGG,
