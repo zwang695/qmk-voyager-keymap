@@ -6,10 +6,12 @@ cd "$repo_root"
 
 ./scripts/draw-keymap.sh
 
-if ! git diff --quiet -- docs/keymap.yaml docs/keymap.svg; then
+if ! git diff --quiet -- \
+  docs/keymap.yaml docs/keymap.svg \
+  docs/keymap-linux.yaml docs/keymap-linux.svg; then
   cat >&2 <<'MSG'
-Keymap diagram was regenerated during pre-push.
-Commit docs/keymap.yaml and docs/keymap.svg, then push again.
+Keymap diagrams were regenerated during pre-push.
+Commit the generated docs/keymap*.yaml and docs/keymap*.svg files, then push again.
 MSG
   exit 1
 fi

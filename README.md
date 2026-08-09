@@ -2,10 +2,11 @@
 
 Personal QMK external userspace repository for the ZSA Voyager.
 
-This repository intentionally contains only one keymap:
+This repository contains separate macOS and Linux keymaps:
 
 ```text
-keyboards/zsa/voyager/keymaps/zwang695
+keyboards/zsa/voyager/keymaps/zwang695        # macOS
+keyboards/zsa/voyager/keymaps/zwang695_linux  # Linux, QWERTY + Colemak-DH
 ```
 
 The keymap source is based on the Oryx export for `voyager-default-mac`:
@@ -17,14 +18,20 @@ https://configure.zsa.io/voyager/layouts/lBWEb/ZPG0o5/0
 It keeps the Oryx-generated `config.h`, `rules.mk`, and layout metadata while
 building from this repository through QMK external userspace.
 
-## Keymap Diagram
+## Keymap Diagrams
 
-![Voyager keymap](docs/keymap.svg?raw=1&v=mac-getreuer-nav)
+### macOS
+
+![Voyager macOS keymap](docs/keymap.svg?raw=1)
+
+### Linux
+
+![Voyager Linux keymap](docs/keymap-linux.svg?raw=1)
 
 The Go60-to-Voyager physical-subset diff is documented in
 [`docs/go60-voyager-diff.md`](docs/go60-voyager-diff.md).
 
-The diagram is generated with
+The diagrams are generated with
 [`keymap-drawer`](https://github.com/caksoylar/keymap-drawer). After setting up
 the QMK CLI below, install `keymap-drawer` and redraw with:
 
@@ -39,8 +46,8 @@ To keep diagrams fresh before pushes, enable the checked-in Git hook:
 git config core.hooksPath scripts/hooks
 ```
 
-The hook runs `scripts/draw-keymap.sh` and blocks the push if the generated
-diagram files need to be committed.
+The hook runs `scripts/draw-keymap.sh` and blocks the push if either generated
+diagram needs to be committed.
 
 ## Local Setup
 
@@ -63,8 +70,17 @@ qmk config user.overlay_dir="$(realpath .)"
 Compile the Voyager keymap directly:
 
 ```sh
+# macOS
 qmk compile -kb zsa/voyager -km zwang695
+
+# Linux
+qmk compile -kb zsa/voyager -km zwang695_linux
 ```
+
+The Linux keymap keeps the Voyager controls from the macOS keymap, uses Linux
+`Ctrl`/`Alt` shortcuts, and adds Colemak-DH. Hold the bottom-left Magic key and
+tap the physical `F` key to switch from QWERTY to Colemak-DH; use the same
+physical key (`T` in Colemak-DH) to switch back.
 
 Or compile all userspace targets from `qmk.json`:
 

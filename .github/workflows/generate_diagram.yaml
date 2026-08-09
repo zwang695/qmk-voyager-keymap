@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "keyboards/zsa/voyager/keymaps/zwang695/**"
+      - "keyboards/zsa/voyager/keymaps/zwang695_linux/**"
       - "scripts/draw-keymap.sh"
       - ".github/workflows/generate_diagram.yaml"
   workflow_dispatch:
@@ -43,13 +44,13 @@ jobs:
 
       - name: Commit diagram updates
         run: |
-          if git diff --quiet -- docs/keymap.yaml docs/keymap.svg; then
+          if git diff --quiet -- docs/keymap.yaml docs/keymap.svg docs/keymap-linux.yaml docs/keymap-linux.svg; then
             echo "Diagram files are already up to date."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/keymap.yaml docs/keymap.svg
+          git add docs/keymap.yaml docs/keymap.svg docs/keymap-linux.yaml docs/keymap-linux.svg
           git commit -m "Regenerate keymap diagram"
           git push
